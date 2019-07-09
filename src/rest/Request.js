@@ -16,7 +16,7 @@ export default class Request {
     constructor({service , method = "get", data = {}, headers = {}}){
         
         this.uri = 'https://api.github.com'
-        let url = this.uri + service
+        let url  = this.uri + service
         
         return this.doRequest({url , method , data , headers}) 
     }

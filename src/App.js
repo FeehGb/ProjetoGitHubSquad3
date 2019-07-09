@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header               from './Components/Header'
+import Contents             from './Components/Contents'
+import Footer               from './Components/Footer'
 import './App.css';
-import User from './Components/User'
-
 
 class App extends Component {
   
@@ -11,10 +11,12 @@ class App extends Component {
    */
   render() {
     return(
-      <div>
-        <User name="FeehGb" data="html_url"></User>
-    </div>
-    )
+        <div className="app">
+          <Header title="" />
+          <Contents />
+          <Footer />
+        </div>
+      )
   }
 }
 
