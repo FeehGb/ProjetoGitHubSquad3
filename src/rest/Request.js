@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import axios from 'axios';
 
 
@@ -7,18 +8,62 @@ import axios from 'axios';
  * A principio usando apenas GET e POST
  * 
  */
-export default class Request {
+class Request extends Component {
     
     /**
      * 
      * @param {url, method, get, data, headers} params
      */
-    constructor({service , method = "get", data = {}, headers = {}}){
+    constructor(){
         
-        this.uri = 'https://api.github.com'
+        /* this.uri = 'https://api.github.com'
         let url  = this.uri + service
         
-        return this.doRequest({url , method , data , headers}) 
+        return this.doRequest({url , method , data , headers})
+         */
+        super()
+        
+        this.state = {
+            
+                data        : []
+            ,   isLoading   : true
+            ,   hasError    : false
+            
+        }
+        
+    }
+    
+    
+    componentDidMount(){
+        
+        const {  config :{ method="get", data={} , headers={} }, url } = this.props
+        
+        console.log(this.props)
+        try {
+            return this.doRequest({ url , method , data , headers })
+                //.then(response => response)
+                .then(data => this.setState({ data, isLoading: false }))
+        }
+        catch (e) {
+            this.setState({ isLoading: false, hasError: true })
+        }
+        
+    }
+    
+    render(){
+        
+        
+        if (this.state.hasError) 
+            return <h1>Um erro aconteceu e não foi possível fazer o fetch!</h1>
+        
+        if (this.state.isLoading) 
+            return <h1>Loading...</h1>
+        
+        return (
+            <div className='character'>
+                {this.props.render(this.state.data)}
+            </div>
+        )
     }
     
     /**
@@ -31,11 +76,18 @@ export default class Request {
      * @param headers{ Object } dados do cabecalho a serem passado junto com a requisicao
      * 
      */
-    async doRequest({url , method , data , headers}){
+    doRequest({url , method , data , headers}){
         
-        console.log(url)
-        let req =  await this[method]({url, data, headers})
-        return req
+        //return new Promise((resolve, reject) => {
+            
+            //resolve(
+        return this[method]({url, data, headers})
+            //)
+            //reject()
+            
+            
+        //})
+
     }
     
     /**
@@ -51,11 +103,13 @@ export default class Request {
      * @param {url, headers} params 
      */
     post({url, data, headers}){
-        return axios.get(url, data, {headers})
+        return axios.post(url, data, {headers})
     }
     
     
 
 }
 
+
+export default Request
 

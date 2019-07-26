@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import User from './User';
+import Home from './Home';
 
 
 
 export default class Contents extends Component {
 
-    constructor(props) {
+/*     constructor(props) {
         super(props)
         
-    }
+    } */
     
-    
-    
-
     render() {
         return (
             <div className="content">
                 <div className="wrap-content">
                     
-                    <User data="all"/>
+                    <Home data="all"/>
                 </div>
             </div>
         )
